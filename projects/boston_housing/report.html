@@ -13261,7 +13261,7 @@ Think about the pros and cons of adding more training points based on if the tra
 <p><strong>Answer: </strong></p>
 <ul>
 <li>Chosen Max Depth = 3</li>
-<li>The curves converge when more points are added.</li>
+<li>For max_depth=1, the model seems to make sharp decreases in training score as we add more data and signifying underfit with convergence at a low training and testing score. We can do better. For max_depth=3, the model seems to be better than depth 1 for sure and takes moderate decreases in training score with more data and also  converges at good training and testing score as more data is added. For max_depth= 6 or 10, the training score seems to have plateued early in process and the validation curve doesn't seem to be no where near it no matter how much data you train it on, impying an overfit.</li>
 <li>Not really, after 300 samples we hit the limit and we cant see much improvments as the curves have plateaued at this stage.</li>
 </ul>
 
@@ -13795,7 +13795,7 @@ cEfbPfUAAAAAAElFTkSuQmCC
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: </strong> Grid search technique is a technique to select the best hyper-parameter to train our model with respect to chosen metric. Grid entails to the fact that we can have more than one parameters to tune and thus grid helps us choose the parameters from different combinations of these parameter values. We select the hyper parameters for our model for which the metric score is the best.</p>
+<p><strong>Answer: </strong> Grid search technique is an exhaustive search method to select the best hyper-parameter to train our model with respect to chosen metric. Grid entails to the fact that we can have more than one parameters to tune and thus grid helps us exhaistively find and choose the parameters from different combinations of these parameter values. We select the hyper parameters for our model for which the metric score is the best.</p>
 
 </div>
 </div>
@@ -13822,7 +13822,7 @@ cEfbPfUAAAAAAElFTkSuQmCC
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: </strong> k-fold cross-validation training technique is a technique to ensure a good fit and eliminae both overfitting and underfitting. In k-fold, k means the number of splits that data is divided into and then its trained on k-1 splits &amp; validated on the left out split. This task is carried out k times to ensure each split is taken into traing and testing in different iterations. This is a great way to make sure that we don't leave out an distinctive but still important data points. In terms of grid search, cross validation ensures that none of the hyper paramters sets get biased beacuse of certain train-test split. Cross validation factors out this all data points are atleast once trained on and test on once.</p>
+<p><strong>Answer: </strong> k-fold cross-validation training technique is a method to ensure a good fit and eliminae both overfitting and underfitting. In k-fold, k means the number of splits that data is divided into and then its trained on k-1 splits &amp; validated on the left out split. This task is carried out k times to ensure each split is taken into traing and testing in different iterations. Once we have k different accuracies or validation scores, we compute their average to obtain a single number to define accuracy over the dataset. This is a great way to make sure that we don't leave out an distinctive but still important data points. In terms of grid search, cross validation ensures that none of the hyper paramters sets get biased beacuse of certain train-test split. Cross validation factors out this all data points are atleast once trained on and test on once.</p>
 
 </div>
 </div>
@@ -13859,7 +13859,7 @@ For the <code>fit_model</code> function in the code cell below, you will need to
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[67]:</div>
+<div class="prompt input_prompt">In&nbsp;[73]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Import &#39;make_scorer&#39;, &#39;DecisionTreeRegressor&#39;, and &#39;GridSearchCV&#39;</span>
@@ -13880,7 +13880,7 @@ For the <code>fit_model</code> function in the code cell below, you will need to
     <span class="n">regressor</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">()</span>
 
     <span class="c1"># TODO: Create a dictionary for the parameter &#39;max_depth&#39; with a range from 1 to 10</span>
-    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]}</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)}</span>
 
     <span class="c1"># TODO: Transform &#39;performance_metric&#39; into a scoring function using &#39;make_scorer&#39; </span>
     <span class="n">scoring_fnc</span> <span class="o">=</span> <span class="n">make_scorer</span><span class="p">(</span><span class="n">performance_metric</span><span class="p">)</span><span class="c1">#make_scorer(fbeta_score, beta=2)</span>
@@ -13895,7 +13895,6 @@ For the <code>fit_model</code> function in the code cell below, you will need to
 
     <span class="c1"># Return the optimal model after fitting the data</span>
     <span class="k">return</span> <span class="n">grid</span><span class="o">.</span><span class="n">best_estimator_</span>
-<span class="c1"># print((np.arange(10)+1))</span>
 </pre></div>
 
 </div>
@@ -13928,7 +13927,7 @@ For the <code>fit_model</code> function in the code cell below, you will need to
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[68]:</div>
+<div class="prompt input_prompt">In&nbsp;[74]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Fit the training data to the model using grid search</span>
@@ -13948,7 +13947,7 @@ For the <code>fit_model</code> function in the code cell below, you will need to
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Parameter &#39;max_depth&#39; is 2 for the optimal model.
+<pre>Parameter &#39;max_depth&#39; is 4 for the optimal model.
 </pre>
 </div>
 </div>
@@ -13963,7 +13962,7 @@ For the <code>fit_model</code> function in the code cell below, you will need to
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong> Hint: </strong> The answer comes from the output of the code snipped above.</p>
-<p><strong>Answer: </strong> Parameter 'max_depth' is 2 for the optimal model. This is different from my previous answer max depth = 4.</p>
+<p><strong>Answer: </strong> Parameter 'max_depth' is 4 for the optimal model. This is same as my previous answer max depth = 4.</p>
 
 </div>
 </div>
