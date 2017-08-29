@@ -13141,7 +13141,7 @@ It is a ratio of true positives(words classified as spam, and which are actually
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[46]:</div>
+<div class="prompt input_prompt">In&nbsp;[53]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="sd">&#39;&#39;&#39;</span>
@@ -13155,10 +13155,15 @@ It is a ratio of true positives(words classified as spam, and which are actually
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">recall_score</span><span class="p">,</span> <span class="n">precision_score</span>
 <span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
+<span class="n">TP</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">income</span><span class="p">)</span>
+<span class="n">FP</span> <span class="o">=</span> <span class="n">income</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">-</span> <span class="n">TP</span>
+<span class="n">TN</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">FN</span> <span class="o">=</span> <span class="mi">0</span>
+
 <span class="c1"># TODO: Calculate accuracy, precision and recall</span>
-<span class="n">accuracy</span> <span class="o">=</span> <span class="p">(</span><span class="nb">sum</span><span class="p">((</span><span class="n">y_test</span><span class="o">==</span><span class="n">y_pred</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">))</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span>
-<span class="n">recall</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">precision</span> <span class="o">=</span> <span class="p">(</span><span class="nb">sum</span><span class="p">((</span><span class="n">y_test</span><span class="o">==</span><span class="n">y_pred</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">))</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span>
+<span class="n">accuracy</span> <span class="o">=</span> <span class="p">(</span><span class="n">TP</span><span class="o">+</span><span class="n">TN</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">TP</span><span class="o">+</span><span class="n">FP</span><span class="o">+</span><span class="n">TN</span><span class="o">+</span><span class="n">FN</span><span class="p">)</span>
+<span class="n">recall</span> <span class="o">=</span> <span class="n">TP</span><span class="o">/</span><span class="p">(</span><span class="n">TP</span><span class="o">+</span><span class="n">FN</span><span class="p">)</span>
+<span class="n">precision</span> <span class="o">=</span> <span class="p">(</span><span class="n">TP</span><span class="o">/</span><span class="p">(</span><span class="n">TP</span><span class="o">+</span><span class="n">FP</span><span class="p">))</span>
 
 <span class="c1"># TODO: Calculate F-score using the formula above for beta = 0.5 and correct values for precision and recall.</span>
 <span class="c1"># HINT: The formula above can be written as (1 + beta**2) * (precision * recall) / ((beta**2 * precision) + recall)</span>
@@ -13179,7 +13184,7 @@ It is a ratio of true positives(words classified as spam, and which are actually
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Naive Predictor: [Accuracy score: 0.2438, F-score: 0.2872]
+<pre>Naive Predictor: [Accuracy score: 0.2478, F-score: 0.2917]
 </pre>
 </div>
 </div>
@@ -14234,7 +14239,12 @@ Look at the graph at the bottom left from the cell above(the visualization creat
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: </strong>  The final model that was chosen is AdaBoostingClassifer (with DecsionTrees). For the given problem, we have reasonable amount of data and we can filter out some decisions that highly impact a persons ablity to earn more than 50k (such as age) and then make further decsions looking at other features of person again and again to get favorable outcome i.e. more than 50 income or not. Plus, our model takes into account all misclassifed samples significantly and then learning from its mistakes; making it a very strong predicter. Also, it was chosen as the predicitve model for our problem because it performs well whenver a new person which model has never seen is presented to it.  As well as it is very fast in training and testing this esnures CharityML to find the right people to send invitation to very quickly and efficiently.</p>
+<p><strong>Answer: </strong>  The final model that was chosen is AdaBoostingClassifer (with DecsionTrees). For choosing the right distribution, here are the following steps:</p>
+<p>Step 1:  The base learner takes all the distributions and assign equal weight or attention to each observation.</p>
+<p>Step 2: If there is any prediction error caused by first base learning algorithm, then we pay higher attention to observations having prediction error. Then, we apply the next base learning algorithm.</p>
+<p>Step 3: Iterate Step 2 till the limit of base learning algorithm is reached or higher accuracy is achieved.</p>
+<p>Here we used Decision Trees as base learners</p>
+<p>reference: <a href="https://www.analyticsvidhya.com/blog/2015/11/quick-introduction-boosting-algorithms-machine-learning/">https://www.analyticsvidhya.com/blog/2015/11/quick-introduction-boosting-algorithms-machine-learning/</a></p>
 
 </div>
 </div>
@@ -14368,13 +14378,13 @@ Final F-score on the testing data: 0.7448
 <tbody>
 <tr>
 <td style="text-align:center">Accuracy Score</td>
-<td style="text-align:center">0.2438</td>
+<td style="text-align:center">0.2478</td>
 <td style="text-align:center">0.8576</td>
 <td style="text-align:center">0.8676</td>
 </tr>
 <tr>
 <td style="text-align:center">F-score</td>
-<td style="text-align:center">0.2872</td>
+<td style="text-align:center">0.2917</td>
 <td style="text-align:center">0.7246</td>
 <td style="text-align:center">0.7448</td>
 </tr>
