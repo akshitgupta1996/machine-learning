@@ -25,7 +25,7 @@ class LearningAgent(Agent):
         # Set any additional class parameters as needed
 
 
-    def reset(self, destination=None, testing=False):
+    def reset(self, destination=None, testing=True):
         """ The reset function is called at the beginning of each trial.
             'testing' is set to True if testing trials are being used
             once training trials have completed. """
@@ -40,6 +40,10 @@ class LearningAgent(Agent):
         # Update additional class parameters as needed
         # If 'testing' is True, set epsilon and alpha to 0
 
+        # if testing:
+        #     self.epsilon = 0   
+        #     self.alpha = 0 
+        
         return None
 
     def build_state(self):
@@ -48,7 +52,7 @@ class LearningAgent(Agent):
             are all features available to the agent. """
 
         # Collect data about the environment
-        waypoint = self.planner.next_waypoint() # The next waypoint 
+        waypoint = self.planner.next_waypoint() # The next waypoint
         inputs = self.env.sense(self)           # Visual input - intersection light and traffic
         deadline = self.env.get_deadline(self)  # Remaining deadline
 
@@ -56,7 +60,7 @@ class LearningAgent(Agent):
         ## TO DO ##
         ###########
         
-        # NOTE : you are not allowed to engineer eatures outside of the inputs available.
+        # NOTE : you are not allowed to engineer features outside of the inputs available.
         # Because the aim of this project is to teach Reinforcement Learning, we have placed 
         # constraints in order for you to learn how to adjust epsilon and alpha, and thus learn about the balance between exploration and exploitation.
         # With the hand-engineered features, this learning process gets entirely negated.
@@ -91,7 +95,12 @@ class LearningAgent(Agent):
         # If it is not, create a new dictionary for that state
         #   Then, for each action available, set the initial Q-value to 0.0
 
-        return
+#         if self.learning:
+#             if state:
+#                 pass
+#             pass
+        
+#         return
 
 
     def choose_action(self, state):
@@ -110,6 +119,19 @@ class LearningAgent(Agent):
         # When learning, choose a random action with 'epsilon' probability
         # Otherwise, choose an action with the highest Q-value for the current state
         # Be sure that when choosing an action with highest Q-value that you randomly select between actions that "tie".
+        
+        if not self.learning:
+            action = random.choice(self.valid_actions)
+        else:
+            temp = random.random()
+            print temp
+            print self.epsilon
+            if(temp<self.epsilon):
+                action = random.choice(self.valid_actions)
+            else:
+                pass
+                action = (self.get_maxQ(state))
+        
         return action
 
 
