@@ -3,38 +3,38 @@
 \-----------------------------------------
 
 ('forward', 'red')
- -- forward : 539.38
- -- None : 772.46
- -- right : 609.41
- -- left : 628.10
+ -- forward : -27.72
+ -- None : 1.55
+ -- right : -11.25
+ -- left : -35.18
 
 ('right', 'green')
- -- forward : 268.35
- -- None : 244.86
- -- right : 291.93
- -- left : 241.35
+ -- forward : 0.61
+ -- None : -5.39
+ -- right : 2.32
+ -- left : 0.43
 
 ('right', 'red')
- -- forward : 191.59
- -- None : 237.46
- -- right : 189.40
- -- left : 166.11
+ -- forward : -17.29
+ -- None : 0.63
+ -- right : -11.15
+ -- left : -10.56
 
 ('left', 'green')
- -- forward : 289.84
- -- None : 195.44
- -- right : 286.87
- -- left : 356.86
+ -- forward : 0.21
+ -- None : -5.60
+ -- right : 0.52
+ -- left : 2.01
 
 ('left', 'red')
- -- forward : 352.33
- -- None : 468.55
- -- right : 362.78
- -- left : 349.78
+ -- forward : -12.67
+ -- None : 1.95
+ -- right : -0.28
+ -- left : -17.15
 
 ('forward', 'green')
- -- forward : 627.35
- -- None : 558.27
- -- right : 531.05
- -- left : 533.83
+ -- forward : 2.08
+ -- None : -5.80
+ -- right : 0.30
+ -- left : 0.28
 
