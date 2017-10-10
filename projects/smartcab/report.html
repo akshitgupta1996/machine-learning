@@ -11820,8 +11820,8 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Import the visualization code</span>
-<span class="kn">import</span> <span class="nn">visuals</span> <span class="k">as</span> <span class="nn">vs</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Import the visualization code</span>
+<span class="kn">import</span> <span class="nn">visuals</span> <span class="kn">as</span> <span class="nn">vs</span>
 
 <span class="c1"># Pretty display for notebooks</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
@@ -11902,6 +11902,7 @@ div#notebook {
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong>
 The flags I changed were: learning=True, enforce_deadline=True, log_metrics=True, optimized=True.
+learning is for make the agent learn or just do random things. enforce_deadline is for making agent reach the destination with a certain deadline. log_metrics is for logging the states the agent was in action it took and the rewards at certain deadline time sequence. optimized is for saving the logged data in proper files according to different flags and learning styles.
 The function in Environment.py that is called upon agent performing an action is act().
 render_text() makes changes to the console and render() makes changes to the pygame window.
 It considers East-West direction first.</p>
@@ -11944,7 +11945,7 @@ Run the agent.py file after setting the flags from projects/smartcab folder inst
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Load the &#39;sim_no-learning&#39; log file from the initial simulation results</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Load the &#39;sim_no-learning&#39; log file from the initial simulation results</span>
 <span class="n">vs</span><span class="o">.</span><span class="n">plot_trials</span><span class="p">(</span><span class="s1">&#39;sim_no-learning.csv&#39;</span><span class="p">)</span>
 </pre></div>
 
@@ -13124,8 +13125,12 @@ SUVORK5CYII=
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer:</strong> In my opinion, only the waypoint and traffic light color are important. We need waypoint for having a sense of direction for our smartcab so that it reaches the destination. Traffic light is needed because smartcab should only move on green light. (Although direction of vehicle on left is helpful to make right turns on red lights without hitting the vehicle on left is its there, the smartcab should perform reasonbly good without left feature). 'light' contributes towards safety and 'waypoint' contributes towards efficiency.
-Other features like left, right and oncoming are not important because smartcab will not collide with them as it will only move on green light and at green light we already know that smartcab has right of way. Deadline is also not needed for building the state because we might not encounter similar deadline value very often. This can result in extremely big state space and thus we might need to train our smartcab at about 1000X times more than what we would need without this feature. Hence, we are better off training without deadline values in our state space.</p>
+<p><strong>Answer:</strong></p>
+<ul>
+<li>In my opinion, only the waypoint and traffic light color are important. We need waypoint for having a sense of direction for our smartcab so that it reaches the destination. Traffic light is needed because smartcab should only move on green light. 'light' contributes towards safety and 'waypoint' contributes towards efficiency.</li>
+<li>Other features like left, right and oncoming are not important because smartcab will not collide with them as it will only move on green light and at green light we already know that smartcab has right of way for MOST of the time. Although we still have some instances where it smartcab doesn't have right of the way, we can overlook those instances as they are not very often and our smartcab can learn quicker if we don't have large state space. For example: direction of vehicle on left is helpful to make right turns on red lights without hitting the vehicle on left is its there, the smartcab should perform reasonbly good without left feature.</li>
+<li>Deadline is also not needed for building the state because we might not encounter similar deadline value very often. This can result in extremely big state space and thus we might need to train our smartcab at about 1000X times more than what we would need without this feature. Hence, we are better off training without deadline values in our state space.</li>
+</ul>
 
 </div>
 </div>
@@ -13234,7 +13239,7 @@ $$ \epsilon_{t+1} = \epsilon_{t} - 0.05, \hspace{10px}\textrm{for trial number }
 <div class="prompt input_prompt">In&nbsp;[49]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Load the &#39;sim_default-learning&#39; file from the default Q-Learning simulation</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Load the &#39;sim_default-learning&#39; file from the default Q-Learning simulation</span>
 <span class="n">vs</span><span class="o">.</span><span class="n">plot_trials</span><span class="p">(</span><span class="s1">&#39;sim_default-learning.csv&#39;</span><span class="p">)</span>
 </pre></div>
 
@@ -14567,7 +14572,7 @@ $$ \epsilon = a^t, \textrm{for } 0 < a < 1 \hspace{50px}\epsilon = \frac{1}{t^2}
 <div class="prompt input_prompt">In&nbsp;[53]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Load the &#39;sim_improved-learning&#39; file from the improved Q-Learning simulation</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Load the &#39;sim_improved-learning&#39; file from the improved Q-Learning simulation</span>
 <span class="n">vs</span><span class="o">.</span><span class="n">plot_trials</span><span class="p">(</span><span class="s1">&#39;sim_improved-learning.csv&#39;</span><span class="p">)</span>
 </pre></div>
 
@@ -16482,15 +16487,15 @@ mVmdOMAyMzMzMzOrEwdYZmZmZmZmdeIAy8zMzMzMrE7+H8ky44xWtIH+AAAAAElFTkSuQmCC
 <ul>
 <li>If the waypoint is forward and the light is green, action is forward.</li>
 <li>If the waypoint is forward and the light is red, action is None.</li>
-<li>If the waypoint is left and the light is green, action is left.</li>
+<li>If the waypoint is left and the light is green, action is None if oncoming vehicle travelling forward else action is left.</li>
 <li>If the waypoint is left and the light is red, action is None.</li>
 <li>If the waypoint is right and the light is green, action is right.</li>
-<li>If the waypoint is right and the light is red, action is None.</li>
+<li>If the waypoint is right and the light is red, action is None if left vehicle travelling forward else action is right.</li>
 <li>If the waypoint is None and the light is greem action is None.</li>
 <li>If the waypoint is None and the light is red, action is None.</li>
 </ul>
 </li>
-<li><p>No, all the policies seem to in sync with my optimal policies. Although the text file doesn't have policies for waypoint: None. This might be because waypoint is None only when smartcab has arrived at the destination, and at that point the program ends. Hence, never actually computing anything for waypoint as None.</p>
+<li><p>Yes, all the policies except 2 of them seem to be in sync with my optimal policies. Since our state doesn't take into account oncoming and left, our agent doesn't learn optimal policies for fast travel in case red &amp; turn right and green &amp; turn left. [Also the text file doesn't have policies for waypoint: None. This might be because waypoint is None only when smartcab has arrived at the destination, and at that point the program ends. Hence, never actually computing anything for waypoint as None.]</p>
 </li>
 <li><p>('forward', 'red')</p>
 <ul>
@@ -16499,15 +16504,16 @@ mVmdOMAyMzMzMzOrEwdYZmZmZmZmdeIAy8zMzMzMrE7+H8ky44xWtIH+AAAAAElFTkSuQmCC
 <li>right : -11.25</li>
 <li>left : -35.18</li>
 </ul>
-<p>^ the waypoint is forward and light is red: Smartcab should in no case go forward if light is red, that can cause accidents. Smartcab here has clearly learner and only associates postive reward with only staying still</p>
-<ol>
-<li>('right', 'red')</li>
+<p>^ the waypoint is forward and light is red: Smartcab should in no case go forward if light is red, that can cause accidents. Smartcab here has clearly learner and only associates postive reward with only staying still.</p>
+</li>
+<li><p>('right', 'red')</p>
+<ul>
 <li>forward : -17.29</li>
 <li>None : 0.63</li>
 <li>right : -11.15</li>
 <li>left : -10.56</li>
-</ol>
-<p>^ the waypoint is right and light is red. Additionally there is no vehicle on left of the smartcab, in this case smartcab should take a right turn as it has right of way. However, it associates high negative reward with moving right as it doesn't have any info on vehicle to its left.</p>
+</ul>
+<p>^ the waypoint is right and light is red. Additionally if there is no vehicle on left of the smartcab, in this case smartcab should take a right turn as it has right of way. However, it associates high negative reward with moving right as it doesn't have any info on vehicle to its left. Thus, in few instances smartcab doesn't learn the optimal policy.</p>
 </li>
 </ol>
 
